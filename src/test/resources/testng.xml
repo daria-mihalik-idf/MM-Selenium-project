@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suit name="Google  Search">
+    <test name="google search test">
+        <parameter name="searchText" value="Selenium"/>
+        <classes>
+            <class name="TestNgXmlProvider"/>
+        </classes>
+    </test>
+
+    <test name="google search test Hello World">
+        <parameter name="searchText" value="Hello World"/>
+        <classes>
+            <class name="TestNgXmlProvider"/>
+        </classes>
+    </test>
+
+    <test name="google search test XML">
+        <parameter name="searchText" value="TestNg XML Parameters"/>
+        <classes>
+            <class name="TestNgXmlProvider"/>
+        </classes>
+    </test>
+</suit>

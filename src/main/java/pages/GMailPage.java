@@ -8,12 +8,20 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class GMailPage {
 
-    @FindAll({@FindBy(css = "div[role='grid'] tbody>tr")})
-    List<WebElement> emailLinks;
+    private By emailLinks = By.cssSelector("div[role='grid'] tbody>tr");
+    WebDriver driver;
 
-    public int countEmails() {
-        return emailLinks.size();
+    public GMailPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+
+    public GMailPage assertNumberOfEmailsIs(int number) {
+        assertEquals(driver.findElements(emailLinks).size(), number);
+        return this;
     }
 }

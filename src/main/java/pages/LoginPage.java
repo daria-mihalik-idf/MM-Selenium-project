@@ -6,26 +6,24 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginPage {
+    WebDriver driver;
 
-    @FindBy(id = "Email")
-    WebElement emailInput;
-
-    @FindBy(id = "identifierNext")
-    WebElement nextButton;
-
-    @FindBy(id = "password")
-    WebElement passwordInput;
-
-    @FindBy(id = "passwordNext")
-    WebElement nextButton2;
-
+    private By emailInput = By.id("Email");
+    private By nextButton = By.id("nextButton");
+    private By passwordInput = By.id("password");
+    private By nextButton2 = By.id("passwordNext");
     private String email = "testqaqmoneuman@gmail.com";
     private String password = "Moneymanaqa1";
 
-    public void login() {
-        emailInput.sendKeys(email);
-        nextButton.click();
-        passwordInput.sendKeys(password);
-        nextButton2.click();
+    public LoginPage(WebDriver driver){
+        this.driver = driver;
+    }
+
+    public GoogleHomePage login() {
+        driver.findElement(emailInput).sendKeys(email);
+        driver.findElement(nextButton).click();
+        driver.findElement(passwordInput).sendKeys(password);
+        driver.findElement(nextButton2).click();
+        return new GoogleHomePage(driver);
     }
 }

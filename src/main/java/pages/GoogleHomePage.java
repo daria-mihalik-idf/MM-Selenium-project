@@ -7,17 +7,21 @@ import org.openqa.selenium.support.FindBy;
 
 public class GoogleHomePage {
 
-    @FindBy(id = "gb_70")
-    WebElement signInButton;
-
-    @FindBy(css = "[href=\"https://mail.google.com/mail/?tab=wm&ogbl\"]")
-    WebElement gmailButton;
-
-    public void clickSignInButton() {
-        signInButton.click();
+    private By signInButton = By.id ("gb_70");
+    private By gmailButton = By.cssSelector ("[href=\"https://mail.google.com/mail/?tab=wm&ogbl\"]");
+    WebDriver driver;
+    public GoogleHomePage(WebDriver driver){
+        this.driver = driver;
     }
 
-    public void goToGmail() {
-        gmailButton.click();
+    public LoginPage clickSignInButton() {
+        driver.findElement(signInButton).click();
+        return new LoginPage(driver);
     }
+
+    public GMailPage goToGmail() {
+        driver.findElement(gmailButton).click();
+        return new GMailPage(driver);
+    }
+
 }

@@ -1,5 +1,6 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
 import pages.GMailPage;
 import pages.GoogleHomePage;
@@ -18,11 +19,13 @@ public class GMailTest {
         System.setProperty("webdriver.chrome.driver", "C:\\SeleniumDriver\\chromedriver.exe");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
+        GoogleHomePage homePage = PageFactory.initElements(driver, GoogleHomePage.class);
+        LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
+        GMailPage mailPage = PageFactory.initElements(driver, GMailPage.class);
         driver.get("https://www.google.by/");
-        GoogleHomePage.clickSignInButton(driver);
-        LoginPage.login(driver);
-        GoogleHomePage.goToGmail(driver);
-        assertEquals(GMailPage.countEmails(driver), 3);
+        homePage.clickSignInButton();
+        loginPage.login();
+        homePage.goToGmail();
+        assertEquals(mailPage.countEmails(), 3);
     }
 }

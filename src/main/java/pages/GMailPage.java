@@ -3,16 +3,17 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
 public class GMailPage {
-    private static By emailLinks = By.cssSelector("div[role='grid'] tbody>tr");
 
-    public static int countEmails(WebDriver driver) {
-        List<WebElement> emails = driver.findElements(emailLinks);
-        return emails.size();
+    @FindAll({@FindBy(css = "div[role='grid'] tbody>tr")})
+    List<WebElement> emailLinks;
 
-
+    public int countEmails() {
+        return emailLinks.size();
     }
 }

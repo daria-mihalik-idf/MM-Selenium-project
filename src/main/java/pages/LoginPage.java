@@ -1,29 +1,36 @@
 package pages;
 
+import static core.Locators.get;
+import static core.WebDriverContainer.findElement;
+import static core.WebDriverContainer.getDriver;
+
+import core.Locators;
+import core.PageBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LoginPage {
+public class LoginPage extends PageBase {
     WebDriver driver;
 
-    private By emailInput = By.id("Email");
-    private By nextButton = By.id("nextButton");
-    private By passwordInput = By.id("password");
-    private By nextButton2 = By.id("passwordNext");
-    private String email = "testqaqmoneuman@gmail.com";
-    private String password = "Moneymanaqa1";
+    private static By emailInput = get("LoginPage.emailInput");
+    private static By nextButton = get("LoginPage.nextButton");
+    private static By passwordInput = get("LoginPage.passwordInput");
+    private static By nextButton2 = get("LoginPage.nextButton2");
 
-    public LoginPage(WebDriver driver){
-        this.driver = driver;
+    private static String email = "testqaqmoneuman@gmail.com";
+    private static String password = "Moneymanaqa1";
+    private static final String TITLE = "Login page title";
+
+    public static void shouldAppear() {
+        shouldAppear(TITLE);
     }
 
-    public GoogleHomePage login() {
-        driver.findElement(emailInput).sendKeys(email);
-        driver.findElement(nextButton).click();
-        driver.findElement(passwordInput).sendKeys(password);
-        driver.findElement(nextButton2).click();
-        return new GoogleHomePage(driver);
+    public static void login() {
+        findElement(emailInput).sendKeys(email);
+        findElement(nextButton).click();
+        findElement(passwordInput).sendKeys(password);
+        findElement(nextButton2).click();
     }
 }

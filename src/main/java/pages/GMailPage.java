@@ -1,27 +1,22 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
-import org.openqa.selenium.support.FindBy;
-
-import java.util.List;
-
+import static core.Locators.get;
+import static core.WebDriverContainer.findElements;
+import static core.WebDriverContainer.getDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GMailPage {
+import core.PageBase;
+import org.openqa.selenium.By;
 
-    private By emailLinks = By.cssSelector("div[role='grid'] tbody>tr");
-    WebDriver driver;
+public class GMailPage extends PageBase {
+    private static By emailLinks = get("GMailPage.emailLinks");
+    private static final String TITLE = "Gmail title";
 
-    public GMailPage(WebDriver driver) {
-        this.driver = driver;
+    public static void assertNumberOfEmailsIs(int number) {
+        assertEquals(findElements(emailLinks).size(), number);
     }
 
-
-    public GMailPage assertNumberOfEmailsIs(int number) {
-        assertEquals(driver.findElements(emailLinks).size(), number);
-        return this;
+    public static void shouldAppear() {
+        shouldAppear(TITLE);
     }
 }

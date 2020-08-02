@@ -1,27 +1,35 @@
 package pages;
 
+import core.PageBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
-public class GoogleHomePage {
+import static core.Locators.get;
+import static core.WebDriverContainer.findElement;
+import static core.WebDriverContainer.getDriver;
+import static helpers.Waiter.waitForJQuery;
 
-    private By signInButton = By.id ("gb_70");
-    private By gmailButton = By.cssSelector ("[href=\"https://mail.google.com/mail/?tab=wm&ogbl\"]");
-    WebDriver driver;
-    public GoogleHomePage(WebDriver driver){
-        this.driver = driver;
+
+public class GoogleHomePage extends PageBase {
+
+    private static By signInButton = get("GoogleHomePage.signInButton");
+    private static By gmailButton = get("GoogleHomePage.gmailButton");
+    private static final String TITLE = "Home age title";
+
+
+    public static void clickSignInButton(WebDriver driver) {
+        findElement(signInButton).click();
     }
 
-    public LoginPage clickSignInButton() {
-        driver.findElement(signInButton).click();
-        return new LoginPage(driver);
+    public static void goToGmail() {
+        findElement(gmailButton).click();
+        waitForJQuery();
     }
 
-    public GMailPage goToGmail() {
-        driver.findElement(gmailButton).click();
-        return new GMailPage(driver);
+    public static void shouldAppear() {
+        shouldAppear(TITLE);
     }
 
+    public static void clickSignInButton() {
+    }
 }

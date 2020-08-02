@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.nio.Buffer;
 
 public class Screenshot extends BaseTest {
+    public enum Result {MATCH, SIZE_MISMATCH, PIXEL_MISMATCH}
+
+    public static File captureScreenshot(WebDriver driver){
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        return screenshot;
+    }
 
     public static File captureScreenshot(WebDriver driver, WebElement element) throws IOException {
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);

@@ -3,10 +3,11 @@ package core;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -26,21 +27,28 @@ public class WebDriverContainer {
         WebDriverContainer.driverType = driverType;
     }
 
-    public static WebDriver getDriver() {
+    public static WebDriver getDriver() throws MalformedURLException {
+        DesiredCapabilities caps = new DesiredCapabilities();
+
         if (driver == null) {
             switch (driverType) {
                 case Firefox:
-                    driver = new FirefoxDriver();
+                    caps.setBrowserName("firefox");
                     break;
                 case Chrome:
-                    driver = new ChromeDriver();
+                    caps.setBrowserName("chrome");
                     break;
                 case IE:
-                    driver = new InternetExplorerDriver();
+                    caps.setBrowserName("internet explorer");
                     break;
                 default:
-                    driver = new ChromeDriver();
+                    caps.setBrowserName("chrome");
                     break;
+            }
+            try {
+                driver = new RemoteWebDriver(new URL("http://localhost:444/wb/hub"), caps);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
             }
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
